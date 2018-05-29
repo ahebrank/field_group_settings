@@ -7,6 +7,6 @@
   "homepage": "https://www.drupal.org/project/field_group_settings",
   "minimum-stability": "dev",
   "require": {
-    "drupal/field_group": "^1.0"
+    "drupal/field_group": "<=3"
   }
 }
