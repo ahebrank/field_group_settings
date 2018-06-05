@@ -14,6 +14,7 @@
   padding: 1em;
   background-color: white;
   border: 2px solid gray;
+  min-width: 300px;
 }
 .field-group-settings__inner.open {
   display: inherit;
