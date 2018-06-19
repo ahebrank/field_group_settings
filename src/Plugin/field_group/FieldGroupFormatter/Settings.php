@@ -109,10 +109,17 @@ class Settings extends FieldGroupFormatterBase {
   protected function isVisible() {
     $current_user = \Drupal::currentUser();
     if ($current_user->hasPermission('bypass field_group_settings field visibility')) {
-      return true;
+      return TRUE;
     }
-    $user_roles =  $current_user->getRoles();
-    $allowed = array_filter($this->getSetting('visible_for_roles'));
+    $user_roles = $current_user->getRoles();
+    $visible = $this->getSetting('visible_for_roles');
+    if (empty($visible)) {
+      return FALSE;
+    }
+    $allowed = array_filter($visible);
+    if (empty($allowed)) {
+      return FALSE;
+    }
     $match = array_intersect($user_roles, $allowed);
     return (count($match) > 0);
   }
