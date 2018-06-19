@@ -111,6 +111,7 @@ class Settings extends FieldGroupFormatterBase {
     if ($current_user->hasPermission('bypass field_group_settings field visibility')) {
       return true;
     }
+    $user_roles =  $current_user->getRoles();
     $allowed = array_filter($this->getSetting('visible_for_roles'));
     $match = array_intersect($user_roles, $allowed);
     return (count($match) > 0);
