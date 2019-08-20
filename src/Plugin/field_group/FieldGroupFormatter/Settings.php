@@ -2,7 +2,6 @@
 
 namespace Drupal\field_group_settings\Plugin\field_group\FieldGroupFormatter;
 
-use Drupal\Core\Render\Element;
 use Drupal\field_group\FieldGroupFormatterBase;
 use Drupal\user\Entity\Role;
 
@@ -46,8 +45,8 @@ class Settings extends FieldGroupFormatterBase {
 
     $val = $this->getSetting('visible_for_roles');
     $roles = user_role_names(TRUE);
-    
-    // see if any roles bypass the permission
+
+    // See if any roles bypass the permission.
     $disabled = [];
     $role_objs = Role::loadMultiple(array_keys($roles));
     foreach ($role_objs as $role_id => $role) {
@@ -83,7 +82,7 @@ class Settings extends FieldGroupFormatterBase {
     $role_names = user_role_names(TRUE);
     $visible = $this->getSetting('visible_for_roles');
 
-    // add global bypass settings
+    // Add global bypass settings.
     $role_objs = Role::loadMultiple(array_keys($role_names));
     foreach ($role_objs as $role_id => $role) {
       if ($role->hasPermission('bypass field_group_settings field visibility')) {
@@ -91,8 +90,8 @@ class Settings extends FieldGroupFormatterBase {
       }
     }
 
-    // map allowed roles to their names
-    $allowed_role_names = array_map(function($role_id) use ($role_names) {
+    // Map allowed roles to their names.
+    $allowed_role_names = array_map(function ($role_id) use ($role_names) {
       return $role_names[$role_id];
     }, array_keys(array_filter($visible)));
 
@@ -106,6 +105,9 @@ class Settings extends FieldGroupFormatterBase {
     return $summary;
   }
 
+  /**
+   * Visibility check.
+   */
   protected function isVisible() {
     $current_user = \Drupal::currentUser();
     if ($current_user->hasPermission('bypass field_group_settings field visibility')) {
@@ -132,4 +134,5 @@ class Settings extends FieldGroupFormatterBase {
     $classes = array_merge($classes, parent::getClasses());
     return $classes;
   }
+
 }

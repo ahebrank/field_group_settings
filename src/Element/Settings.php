@@ -2,7 +2,6 @@
 
 namespace Drupal\field_group_settings\Element;
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\RenderElement;
 
 /**
@@ -16,9 +15,15 @@ class Settings extends RenderElement {
    * {@inheritdoc}
    */
   public function getInfo() {
-    $class = get_class($this);
+    $class = get_class();
 
     return [
+      '#process' => [
+        [$class, 'processGroup'],
+      ],
+      '#pre_render' => [
+        [$class, 'preRenderGroup'],
+      ],
       '#theme_wrappers' => ['field_group_settings'],
     ];
   }
